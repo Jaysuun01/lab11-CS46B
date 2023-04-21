@@ -11,8 +11,8 @@ public class FamilyTree
     
     private static class TreeNode
     {
-        private String                    name;
-        private TreeNode                parent;
+        private String                     name;
+        private TreeNode                   parent;
         private ArrayList<TreeNode>        children;
         
         
@@ -33,6 +33,9 @@ public class FamilyTree
         {
             // Add childNode to this node's children list. Also
             // set childNode's parent to this node.
+        		children.add(childNode);
+        		this.parent = childNode;
+        		
         }
         
         
@@ -41,7 +44,7 @@ public class FamilyTree
         TreeNode getNodeWithName(String targetName)
         {
             // Does this node have the target name?
-            if (?????)
+            if (name.equals(targetName))					
                 return this;
                     
             // No, recurse. Check all children of this node.
@@ -49,11 +52,17 @@ public class FamilyTree
             {
                 // If child.getNodeWithName(targetName) returns a non-null node,
                 // then that's the node we're looking for. Return it.
+            		TreeNode theChild  = child.getNodeWithName(targetName);
+            		if (theChild != null) {
+            			return theChild;
+            		}
             }
             
             // Not found anywhere.
             return null;
         }
+        
+        
         
         
         // Returns a list of ancestors of this TreeNode, starting with this node’s parent and
@@ -66,7 +75,11 @@ public class FamilyTree
             // the nodes of a tree is like traversing a linked list. If that isn’t clear,
             // draw a tree, mark any leaf node, and then mark its ancestors in order from
             // recent to ancient. Expect a question about this on the final exam.
-
+            TreeNode elder = this;
+            while (elder.parent != null) {
+            		ancestors.add(elder.parent);
+            		elder = elder.parent;
+            }          
             return ancestors;
         }
         
